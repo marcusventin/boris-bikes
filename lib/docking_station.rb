@@ -1,7 +1,6 @@
 require_relative "bike"
 
 class DockingStation
-  # attr_reader :bikes
 
   def initialize
     @bikes = []
@@ -13,7 +12,7 @@ class DockingStation
   end
 
   def dock(bike)
-    fail 'No space left' if full?
+    fail "No space left" if full?
     @bikes << bike
   end
 
@@ -24,7 +23,7 @@ class DockingStation
   end
   
   def empty?
-    @bikes.length == 0
+    @bikes.empty?
   end
   
 end
