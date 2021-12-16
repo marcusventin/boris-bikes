@@ -22,11 +22,6 @@ describe DockingStation do
       expect(subject.dock(bike)[0]).to eq bike
     end
 
-    it "returns docked bikes" do
-      bike = Bike.new
-      expect(subject.dock(bike)[0]).to eq bike
-    end
-
     it "raises an error when full" do
       20.times {subject.dock(Bike.new)}
       expect{subject.dock(Bike.new)}.to raise_error("No space left")
