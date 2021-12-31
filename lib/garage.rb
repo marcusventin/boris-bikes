@@ -1,9 +1,6 @@
-
+require_relative "bike"
 
 class Garage
-  attr_reader :workshop
-  
-  def initialize
-    @workshop = []
-  end
+  include BikeContainer
+  attr_reader :bikes
 end

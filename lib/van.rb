@@ -3,34 +3,34 @@ require_relative "bike"
 require_relative "garage"
 
 class Van
-attr_reader :van
-  def initialize
-    @van = []
-  end
+  include BikeContainer
+  attr_reader :bikes
 
   def collect_broken(dockingstation)
-    dockingstation.bikes.each { |bike|
-      if bike.working? == false
-        @van << dockingstation.bikes.delete(bike)
-      end
+    dockingstation.broken_bikes.each { |brokenbike|
+      bikes << dockingstation.bikes.delete(brokenbike)
     }
   end
 
   def drop_off(garage)
-    @van.each { |bike| 
-      if bike.working? == false
-        garage.workshop << @van.delete(bike)
-      end
+    broken_bikes.each { |brokenbike|
+      garage.bikes << bikes.delete(brokenbike)
     }
   end
 
   def collect_working(garage)
-    garage.workshop.each { |bike|
-      if bike.working? == true
-        @van << bike
-      end
+    garage.working_bikes.each { |workingbike|
+      bikes << garage.bikes.delete(workingbike)
     }
-    garage.workshop.delete_if { |bike| bike.working? == true }
   end
 
+  private
+
+  def working_bikes
+    bikes.reject { |bike| bike.working? == false }
+  end
+
+  def broken_bikes
+    bikes.reject { |bike| bike.working? == true }
+  end
 end
